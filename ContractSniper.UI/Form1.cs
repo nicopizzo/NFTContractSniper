@@ -9,8 +9,8 @@ namespace ContractSniper.UI
     {
         private readonly IContractWatcherFactory _ContractWatcherFactory;
         private readonly IContractLoading _ContractLoading;
-        private readonly CancellationTokenSource _CancellationTokenSource;
         private readonly ILoggingService _Logger;
+        private CancellationTokenSource? _CancellationTokenSource;
 
         internal ContractSniper(IContractWatcherFactory contractWatcherFactory, IContractLoading contractLoading, ILoggingServiceFactory loggingServiceFactory)
         {
@@ -18,11 +18,11 @@ namespace ContractSniper.UI
             _Logger = loggingServiceFactory.GetLoggingService(txt_log);
             _ContractWatcherFactory = contractWatcherFactory;
             _ContractLoading = contractLoading;
-            _CancellationTokenSource = new CancellationTokenSource();
         }
 
         private async void btn_StartWatching_Click(object sender, EventArgs e)
         {
+            _CancellationTokenSource = new CancellationTokenSource();
             if (ValidateWatching())
             {
                 _Logger.WriteLine("Creating Contract Watcher");
@@ -41,13 +41,15 @@ namespace ContractSniper.UI
                 finally
                 {
                     btn_StopWatching.Enabled = false;
+                    _CancellationTokenSource?.Dispose();
                 }
             }
         }
 
         private void btn_StopWatching_Click(object sender, EventArgs e)
         {
-            _CancellationTokenSource.Cancel();
+            _CancellationTokenSource?.Cancel();
+            _CancellationTokenSource?.Dispose();
         }
 
         private WatcherInput CreateWatcherInput()
