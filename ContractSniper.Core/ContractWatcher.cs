@@ -77,10 +77,19 @@ namespace ContractSniper.Core
 
         private async Task<HexBigInteger> GetCurrentGasPriceForTransaction()
         {
-            var gasPriceWei = await _Web3.Eth.GasPrice.SendRequestAsync();
-            _Logger.WriteLine($"Current gas price is {UnitConversion.Convert.FromWei(gasPriceWei.Value, UnitConversion.EthUnit.Gwei)} gwei");
-            gasPriceWei = ((gasPriceWei.Value * _Input.PercentMoreGas / 100) + gasPriceWei.Value).ToHexBigInteger();
-            _Logger.WriteLine($"Transaction will use the {_Input.PercentMoreGas}% more gas - {UnitConversion.Convert.FromWei(gasPriceWei.Value, UnitConversion.EthUnit.Gwei)} gwei");
+            HexBigInteger gasPriceWei;
+            if (_Input.GasPrice.HasValue)
+            {
+                gasPriceWei = UnitConversion.Convert.ToWei(_Input.GasPrice.Value, UnitConversion.EthUnit.Gwei).ToHexBigInteger();
+                _Logger.WriteLine($"Transaction will use the {_Input.GasPrice.Value} gwei");
+            }
+            else
+            {
+                gasPriceWei = await _Web3.Eth.GasPrice.SendRequestAsync();
+                _Logger.WriteLine($"Current gas price is {UnitConversion.Convert.FromWei(gasPriceWei.Value, UnitConversion.EthUnit.Gwei)} gwei");
+                gasPriceWei = ((gasPriceWei.Value * _Input.PercentMoreGas / 100) + gasPriceWei.Value).ToHexBigInteger();
+                _Logger.WriteLine($"Transaction will use the {_Input.PercentMoreGas}% more gas - {UnitConversion.Convert.FromWei(gasPriceWei.Value, UnitConversion.EthUnit.Gwei)} gwei");
+            }
             return gasPriceWei;
         }
     }

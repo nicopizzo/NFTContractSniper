@@ -52,7 +52,7 @@ namespace ContractSniper.UI
 
         private WatcherInput CreateWatcherInput()
         {
-            return new WatcherInput()
+            var input = new WatcherInput()
             {
                 PrivateKey = txt_privatekey.Text,
                 ContractAddress = txt_contractAddress.Text,
@@ -60,9 +60,13 @@ namespace ContractSniper.UI
                 LivePulse = cmb_IsLive.Text,
                 MintFunction = cmb_Mint.Text,
                 NumberToMint = int.Parse(txt_NoToMint.Text),
-                CostToMint = txt_mintCost.Text,
-                PercentMoreGas = int.Parse(txt_MoreGas.Text)
+                CostToMint = txt_mintCost.Text
             };
+
+            if(int.TryParse(txt_GasPrice.Text, out int p)) input.GasPrice = p;
+            if (int.TryParse(txt_MoreGas.Text, out int m)) input.PercentMoreGas = m;
+
+            return input;
         }
 
         private bool ValidateWatching()
@@ -101,11 +105,6 @@ namespace ContractSniper.UI
             if (string.IsNullOrEmpty(txt_mintCost.Text) && !double.TryParse(txt_mintCost.Text, out _))
             {
                 MessageBox.Show("Mint cost missing or invalid");
-                return false;
-            }
-            if (string.IsNullOrEmpty(txt_MoreGas.Text) && !int.TryParse(txt_MoreGas.Text, out _))
-            {
-                MessageBox.Show("% more gas missing or invalid");
                 return false;
             }
 

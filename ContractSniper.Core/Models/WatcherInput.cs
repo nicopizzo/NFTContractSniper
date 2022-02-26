@@ -9,6 +9,7 @@
         public string? CostToMint { get; set; }
         public string? LivePulse { get; set; }
         public string? MintFunction { get; set; }
-        public int PercentMoreGas { get; set; }
+        public int PercentMoreGas { get; set; } = 0;
+        public int? GasPrice { get; set; }
     }
 }

@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.label7 = new System.Windows.Forms.Label();
+            this.txt_MoreGas = new System.Windows.Forms.TextBox();
             this.cmb_Mint = new System.Windows.Forms.ComboBox();
             this.cmb_IsLive = new System.Windows.Forms.ComboBox();
             this.btn_LoadABI = new System.Windows.Forms.Button();
@@ -47,8 +49,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.txt_privatekey = new System.Windows.Forms.TextBox();
             this.txt_log = new System.Windows.Forms.RichTextBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.txt_MoreGas = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.txt_GasPrice = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -67,6 +69,8 @@
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.label8);
+            this.splitContainer1.Panel1.Controls.Add(this.txt_GasPrice);
             this.splitContainer1.Panel1.Controls.Add(this.label7);
             this.splitContainer1.Panel1.Controls.Add(this.txt_MoreGas);
             this.splitContainer1.Panel1.Controls.Add(this.cmb_Mint);
@@ -94,6 +98,22 @@
             this.splitContainer1.Size = new System.Drawing.Size(1101, 623);
             this.splitContainer1.SplitterDistance = 425;
             this.splitContainer1.TabIndex = 1;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(700, 312);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(99, 15);
+            this.label7.TabIndex = 20;
+            this.label7.Text = "% More Gas Price";
+            // 
+            // txt_MoreGas
+            // 
+            this.txt_MoreGas.Location = new System.Drawing.Point(805, 309);
+            this.txt_MoreGas.Name = "txt_MoreGas";
+            this.txt_MoreGas.Size = new System.Drawing.Size(42, 23);
+            this.txt_MoreGas.TabIndex = 19;
             // 
             // cmb_Mint
             // 
@@ -252,22 +272,21 @@
             this.txt_log.TabIndex = 0;
             this.txt_log.Text = "";
             // 
-            // label7
+            // label8
             // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(666, 283);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(99, 15);
-            this.label7.TabIndex = 20;
-            this.label7.Text = "% More Gas Price";
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(707, 283);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(92, 15);
+            this.label8.TabIndex = 22;
+            this.label8.Text = "Gas Price (Gwei)";
             // 
-            // txt_MoreGas
+            // txt_GasPrice
             // 
-            this.txt_MoreGas.Location = new System.Drawing.Point(771, 280);
-            this.txt_MoreGas.Name = "txt_MoreGas";
-            this.txt_MoreGas.Size = new System.Drawing.Size(42, 23);
-            this.txt_MoreGas.TabIndex = 19;
-            this.txt_MoreGas.Text = "0";
+            this.txt_GasPrice.Location = new System.Drawing.Point(805, 280);
+            this.txt_GasPrice.Name = "txt_GasPrice";
+            this.txt_GasPrice.Size = new System.Drawing.Size(42, 23);
+            this.txt_GasPrice.TabIndex = 21;
             // 
             // ContractSniper
             // 
@@ -308,5 +327,7 @@
         private ComboBox cmb_IsLive;
         private Label label7;
         private TextBox txt_MoreGas;
+        private Label label8;
+        private TextBox txt_GasPrice;
     }
 }
