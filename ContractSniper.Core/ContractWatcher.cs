@@ -41,7 +41,7 @@ namespace ContractSniper.Core
             while (true)
             {
                 if (cancellationToken.IsCancellationRequested) break;
-                await Task.Delay(2000);
+                await Task.Delay(1000);
                 var isLiveResponse = await isLiveFunction.CallAsync<bool>();
                 if (isLiveResponse)
                 {
