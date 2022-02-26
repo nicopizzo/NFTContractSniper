@@ -9,8 +9,8 @@ namespace ContractSniper.Core.Services
     {
         public IContractWatcher CreateContractWatcher(WatcherInput input, ILoggingService loggingService)
         {
-            var account = new Account(input.PrivateKey, 4);
-            var web3 = new Web3(account, "https://rinkeby.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161");
+            var account = new Account(input.PrivateKey, 1);
+            var web3 = new Web3(account, "https://mainnet.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161");
             return new ContractWatcher(input, web3, loggingService);
         }
     }
