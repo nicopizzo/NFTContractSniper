@@ -4,6 +4,6 @@ namespace ContractSniper.Core.Interfaces
 {
     public interface IContractWatcherFactory
     {
-        IContractWatcher CreateContractWatcher(WatcherInput input, ILoggingService loggingService);
+        IContractWatcher CreateContractWatcher(WatcherInput input, ILoggingService loggingService, EthNetwork network);
     }
 }

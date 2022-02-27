@@ -7,10 +7,10 @@ namespace ContractSniper.Core.Services
 {
     internal class ContractWatcherFactory : IContractWatcherFactory
     {
-        public IContractWatcher CreateContractWatcher(WatcherInput input, ILoggingService loggingService)
+        public IContractWatcher CreateContractWatcher(WatcherInput input, ILoggingService loggingService, EthNetwork network)
         {
-            var account = new Account(input.PrivateKey, 1);
-            var web3 = new Web3(account, "https://mainnet.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161");
+            var account = new Account(input.PrivateKey, network.Value);
+            var web3 = new Web3(account, network.NodeEndpoint);
             return new ContractWatcher(input, web3, loggingService);
         }
     }

@@ -18,6 +18,17 @@ namespace ContractSniper.UI
             _Logger = loggingServiceFactory.GetLoggingService(txt_log);
             _ContractWatcherFactory = contractWatcherFactory;
             _ContractLoading = contractLoading;
+            Init();
+        }
+
+        private void Init()
+        {
+            cmb_Network.Items.Clear();
+            foreach(var network in EthNetwork.List)
+            {
+                cmb_Network.Items.Add(network);
+            }
+            cmb_Network.SelectedIndex = 0;
         }
 
         private async void btn_StartWatching_Click(object sender, EventArgs e)
@@ -29,7 +40,7 @@ namespace ContractSniper.UI
                 try
                 {
                     var input = CreateWatcherInput();
-                    var watcher = _ContractWatcherFactory.CreateContractWatcher(input, _Logger);
+                    var watcher = _ContractWatcherFactory.CreateContractWatcher(input, _Logger, (EthNetwork)cmb_Network.SelectedItem);
                     btn_StopWatching.Enabled = true;
                     await watcher.StartWatching(_CancellationTokenSource.Token);
                 }
@@ -48,8 +59,12 @@ namespace ContractSniper.UI
 
         private void btn_StopWatching_Click(object sender, EventArgs e)
         {
-            _CancellationTokenSource?.Cancel();
-            _CancellationTokenSource?.Dispose();
+            if (_CancellationTokenSource != null && !_CancellationTokenSource.IsCancellationRequested)
+            {
+                _Logger.WriteLine("Canceling...");
+                _CancellationTokenSource?.Cancel();
+                _CancellationTokenSource?.Dispose();
+            }
         }
 
         private WatcherInput CreateWatcherInput()
@@ -142,6 +157,12 @@ namespace ContractSniper.UI
                                         f.InputParameters[0].Type.Contains("int", StringComparison.CurrentCultureIgnoreCase));
 
             foreach (var mint in possibleMint) cmb_Mint.Items.Add(mint.Name);
+        }
+
+        private void txt_log_TextChanged(object sender, EventArgs e)
+        {
+            txt_log.SelectionStart = txt_log.Text.Length;
+            txt_log.ScrollToCaret();
         }
     }
 }

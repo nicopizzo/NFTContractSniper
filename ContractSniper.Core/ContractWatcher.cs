@@ -11,6 +11,7 @@ namespace ContractSniper.Core
         private readonly WatcherInput _Input;
         private readonly IWeb3 _Web3;
         private readonly ILoggingService _Logger;
+        private const int CHECK_TIME = 1000;
 
         public ContractWatcher(WatcherInput input, IWeb3 web3, ILoggingService logger)
         {
@@ -23,8 +24,9 @@ namespace ContractSniper.Core
         {
             _Logger.WriteLine("Getting wallet address from private key");
             var address = _Web3.Eth.TransactionManager.Account.Address;
+            _Logger.WriteLine($"Wallet address {address} was loaded");
 
-            _Logger.WriteLine("Loading contract ABI at contract address");
+            _Logger.WriteLine($"Loading contract ABI at contract address {_Input.ContractAddress}");
             var contract = _Web3.Eth.GetContract(_Input.ContractABI, _Input.ContractAddress);
             if (contract == null) throw new Exception("Contract not found");
 
@@ -41,7 +43,7 @@ namespace ContractSniper.Core
             while (true)
             {
                 if (cancellationToken.IsCancellationRequested) break;
-                await Task.Delay(1000);
+                await Task.Delay(CHECK_TIME);
                 var isLiveResponse = await isLiveFunction.CallAsync<bool>();
                 if (isLiveResponse)
                 {
@@ -64,7 +66,7 @@ namespace ContractSniper.Core
                     break;
                 }
 
-                _Logger.WriteLine("Not live yet, checking again in 2 sec");
+                _Logger.WriteLine($"Not live yet, checking again in {CHECK_TIME} ms");
             }      
         }
 
