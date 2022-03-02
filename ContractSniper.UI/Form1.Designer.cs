@@ -53,6 +53,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.txt_privatekey = new System.Windows.Forms.TextBox();
             this.txt_log = new System.Windows.Forms.RichTextBox();
+            this.chk_RetryEstimateFailure = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -71,6 +72,7 @@
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.chk_RetryEstimateFailure);
             this.splitContainer1.Panel1.Controls.Add(this.label9);
             this.splitContainer1.Panel1.Controls.Add(this.cmb_Network);
             this.splitContainer1.Panel1.Controls.Add(this.label8);
@@ -311,6 +313,16 @@
             this.txt_log.Text = "";
             this.txt_log.TextChanged += new System.EventHandler(this.txt_log_TextChanged);
             // 
+            // chk_RetryEstimateFailure
+            // 
+            this.chk_RetryEstimateFailure.AutoSize = true;
+            this.chk_RetryEstimateFailure.Location = new System.Drawing.Point(694, 382);
+            this.chk_RetryEstimateFailure.Name = "chk_RetryEstimateFailure";
+            this.chk_RetryEstimateFailure.Size = new System.Drawing.Size(156, 19);
+            this.chk_RetryEstimateFailure.TabIndex = 25;
+            this.chk_RetryEstimateFailure.Text = "Retry on Estimate Failure";
+            this.chk_RetryEstimateFailure.UseVisualStyleBackColor = true;
+            // 
             // ContractSniper
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -354,5 +366,6 @@
         private TextBox txt_GasPrice;
         private Label label9;
         private ComboBox cmb_Network;
+        private CheckBox chk_RetryEstimateFailure;
     }
 }

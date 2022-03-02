@@ -77,7 +77,8 @@ namespace ContractSniper.UI
                 LivePulse = cmb_IsLive.Text,
                 MintFunction = cmb_Mint.Text,
                 NumberToMint = int.Parse(txt_NoToMint.Text),
-                CostToMint = txt_mintCost.Text
+                CostToMint = txt_mintCost.Text,
+                RetryOnFailedEstimation = chk_RetryEstimateFailure.Checked
             };
 
             if(int.TryParse(txt_GasPrice.Text, out int p)) input.GasPrice = p;

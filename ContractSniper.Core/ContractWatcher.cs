@@ -48,10 +48,20 @@ namespace ContractSniper.Core
                 if (isLiveResponse)
                 {
                     _Logger.WriteLine("Minting is live, estimating gas...");
+                    HexBigInteger gasForFunction;
+                    try
+                    {
+                        gasForFunction = await mintFunction.EstimateGasAsync(address, null, costToMint, _Input.NumberToMint);
+                        _Logger.WriteLine($"Mint function is estimated to use {gasForFunction.Value} gas");
+                    }
+                    catch (Exception ex)
+                    {
+                        _Logger.WriteLine($"Failed to estimate: {ex.Message}");
+                        if (_Input.RetryOnFailedEstimation) continue;
+                        throw;
+                    }
 
-                    var gasForFunction = await mintFunction.EstimateGasAsync(address, null, costToMint, _Input.NumberToMint);
-                    _Logger.WriteLine($"Mint function is estimated to use {gasForFunction.Value} gas");
-
+                    if (gasForFunction == null) continue;                   
                     var gasPriceWei = await GetCurrentGasPriceForTransaction();
 
                     _Logger.WriteLine($"Submitting Transaction... Wait for response...");

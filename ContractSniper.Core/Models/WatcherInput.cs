@@ -11,5 +11,6 @@
         public string? MintFunction { get; set; }
         public int PercentMoreGas { get; set; } = 0;
         public int? GasPrice { get; set; }
+        public bool RetryOnFailedEstimation { get; set; }
     }
 }
